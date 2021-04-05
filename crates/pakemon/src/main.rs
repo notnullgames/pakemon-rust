@@ -42,12 +42,14 @@ async fn app(window: Window, mut gfx: Graphics, mut input: Input) -> Result<()> 
         if step == 1 {
             let region = Rectangle::new(Vector::new(80.0, ytarget), image.size());
             gfx.draw_image(&image, region);
-            font.draw(
-                &mut gfx,
-                "START",
-                Color::WHITE,
-                Vector::new(140.0, 110.0),
-            )?;
+            if y < 20.0 {
+                font.draw(
+                    &mut gfx,
+                    "START",
+                    Color::WHITE,
+                    Vector::new(140.0, 110.0),
+                )?;
+            }
         }
 
         gfx.present(&window)?;
