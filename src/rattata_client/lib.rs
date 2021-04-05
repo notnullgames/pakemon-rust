@@ -22,3 +22,7 @@ pub struct Rattata {
 }
 
 impl Rattata {}
+
+pub fn build_rattata() -> Rattata {
+    Rattata { minions: vec![] }
+}
