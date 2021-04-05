@@ -21,17 +21,15 @@ async fn app(window: Window, mut gfx: Graphics, mut input: Input) -> Result<()> 
     let image = Image::load(&gfx, "title.png").await?;
     let ttf = VectorFont::load("font.ttf").await?;
     let mut font = ttf.to_renderer(&gfx, 10.0)?;
-
     loop {
         time = time + 1.0;
         while let Some(_) = input.next_event().await {}
-        let ytarget = 40.0;
-        let y = time % ytarget;
 
         gfx.clear(Color::BLACK);
         
         if step == 0 {
-            if y == ( ytarget - 1.0 ) {
+            let y = time % 40.0;
+            if y == ( 39.0 ) {
                 step = 1;
             }
             
@@ -40,9 +38,10 @@ async fn app(window: Window, mut gfx: Graphics, mut input: Input) -> Result<()> 
         }
 
         if step == 1 {
-            let region = Rectangle::new(Vector::new(80.0, ytarget), image.size());
+            let s = time % 60.0;
+            let region = Rectangle::new(Vector::new(80.0, 40.0), image.size());
             gfx.draw_image(&image, region);
-            if y < 20.0 {
+            if s > 20.0 {
                 font.draw(
                     &mut gfx,
                     "START",
