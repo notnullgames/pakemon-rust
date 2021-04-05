@@ -53,12 +53,12 @@ monorepo of new rust rattata/pakemon ideas
 You need `cargo` and `make` installed.
 
 ```sh
-make help                           show this help
-make install                        setup dev-tools used by other targets
-make pakemon                        run frontend on current platform
-make rattata                        run backend server (payload) on current platform
-make rattata-cli                    run CLI frontend on current platform
-make release-linux                  create a release for linux (x86_64)
-make release-osx                    create a release for osx (x86_64)
-make release-win                    create a release for windows (x86_64)
+make help                           # show this help
+make install                        # setup dev-tools used by other targets
+make pakemon                        # run frontend on current platform
+make rattata                        # run backend server (payload) on current platform
+make rattata-cli                    # run CLI frontend on current platform
+make release-linux                  # create a release for linux (x86_64)
+make release-osx                    # create a release for osx (x86_64)
+make release-win                    # create a release for windows (x86_64)
 ```
