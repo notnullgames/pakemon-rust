@@ -22,7 +22,7 @@ rattata-cli: ## run CLI frontend on current platform
 
 release-linux: releases/rattata_client-linux.zip releases/rattata_server-linux.zip ## create a release for linux (x86_64)
 release-osx: releases/rattata_client-osx.zip releases/rattata_server-osx.zip       ## create a release for osx (x86_64)
-
+release-win: releases/rattata_client-win.zip releases/rattata_server-win.zip       ## create a release for windows (x86_64)
 
 # TODO: these need work. can't cross-build from OSX to linux or vice-versa
 
@@ -54,3 +54,18 @@ releases/rattata_client-osx.zip: build-osx
 
 releases/rattata_server-osx.zip: build-osx
 	cd target/x86_64-apple-darwin/release && zip ../../../releases/rattata_server-osx.zip rattata_server
+
+
+build-win:
+	cross build --target=x86_64-pc-windows-gnu --release
+	strip target/x86_64-pc-windows-gnu/release/rattata_client
+	strip target/x86_64-pc-windows-gnu/release/rattata_server
+	upx --best --lzma target/x86_64-pc-windows-gnu/release/rattata_client
+	upx --best --lzma target/x86_64-pc-windows-gnu/release/rattata_server
+	mkdir -p releases
+
+releases/rattata_client-win.zip: build-win
+	cd target/x86_64-pc-windows-gnu/release && zip ../../../releases/rattata_client-win.zip rattata_client
+
+releases/rattata_server-win.zip: build-win
+	cd target/x86_64-pc-windows-gnu/release && zip ../../../releases/rattata_server-win.zip rattata_server
