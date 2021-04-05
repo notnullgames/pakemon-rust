@@ -1,4 +1,5 @@
 # pakemon-rust
+
 monorepo of new rust rattata/pakemon ideas
 
 - these all need cute names (rattata has "rats" maybe, for plugins, for example)
@@ -6,7 +7,7 @@ monorepo of new rust rattata/pakemon ideas
 - need a good generic plugin system. See [this](https://github.com/luojia65/plugin-system-example). Make sure plugins work on wasm, too, or use separate plugin system for backend vs pakemon
 - frontend needs a backend to do anything useful, but can be on the same machine
 
-# sub-projects:
+## sub-projects:
   - rattata
     - backend
       - plugin system
@@ -46,3 +47,14 @@ monorepo of new rust rattata/pakemon ideas
   - OS mods (for headless keychain/powerstrip/etc)
     - USB injector stack (to inject backend payload on target over USB)
     - docker (to run above docker stack without demo-targets)
+
+## development
+
+You need `cargo` and `make` installed.
+
+```sh
+make         # get help with all the tasks you can do
+make install # install dev-tools
+make pakemon # run the game-like frontend
+make release # create a bundles for every supported platform for release
+```
