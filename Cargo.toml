@@ -1,55 +1,11 @@
-[package]
-name = "pakemon-rust"
-version = "0.0.1"
-authors = ["David Konsumer <konsumer@jetboystudio.com>"]
-edition = "2018"
-license = "MIT"
-homepage = "https://github.com/notnullgames/pakemon-rust"
-
-[dependencies]
-# for pakemon
-quicksilver = "0.4"
-
-# for rattata_client
-crossterm = { version = "0.19", features = [ "serde" ] }
-serde = {version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-chrono = { version = "0.4", features = ["serde"] }
-rand = { version = "0.7.3", default-features = false, features = ["std"] }
-tui = { version = "0.14", default-features = false, features = ['crossterm', 'serde'] }
-thiserror = "1.0"
-
-# for rattata_server
+[workspace]
+members = [
+    "crates/pakemon",
+    "crates/rattata",
+    "crates/trainer",
+]
 
 [profile.release]
 opt-level = 'z'  # Optimize for size.
 lto = true
 panic = 'abort'
-
-[target.x86_64-unknown-linux-gnu.dependencies]
-libudev-sys = "0.1"
-
-[[bin]]
-name = "pakemon"
-path = "src/pakemon/main.rs"
-
-[[bin]]
-name = "rattata_server"
-path = "src/rattata_server/main.rs"
-
-[[bin]]
-name = "rattata_client"
-path = "src/rattata_client/main.rs"
-
-
-[lib]
-name = "rattata"                   # The name of the target.
-path = "src/rattata_client/lib.rs" # The source file of the target.
-test = true                        # Is tested by default.
-doctest = true                     # Documentation examples are tested by default.
-bench = true                       # Is benchmarked by default.
-doc = true                         # Is documented by default.
-plugin = false                     # Used as a compiler plugin (deprecated).
-proc-macro = false                 # Set to `true` for a proc-macro library.
-harness = true                     # Use libtest harness.
-crate-type = ["lib"]               # The crate types to generate.

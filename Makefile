@@ -1,71 +1,35 @@
 # this is just to share how to do things with others and keep notes
 # actual build description us in Cargo.toml
 
-.PHONY: help install pakemon rattata rattata-cli build-osx release-osx
+.PHONY: help install pakemon trainer rattata release
 
 help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 
 
 install: ## setup dev-tools used by other targets
 	cargo install cross
 
 pakemon: ## run frontend on current platform
-	cargo run --bin=pakemon
+	cargo run -p pakemon
 
-rattata: ## run backend server (payload) on current platform
-	cargo run --bin=rattata_server
+trainer: ## run backend server (payload) on current platform
+	cargo run -p trainer
 
-rattata-cli: ## run CLI frontend on current platform
-	cargo run --bin=rattata_client
+rattata: ## run CLI frontend on current platform
+	cargo run -p rattata
+
+release: release-osx ## compile release packages for all supported platforms
 
 
-release-linux: releases/rattata_client-linux.zip releases/rattata_server-linux.zip ## create a release for linux (x86_64)
-release-osx: releases/rattata_client-osx.zip releases/rattata_server-osx.zip       ## create a release for osx (x86_64)
-release-win: releases/rattata_client-win.zip releases/rattata_server-win.zip       ## create a release for windows (x86_64)
-
-# TODO: these need work. can't cross-build from OSX to linux or vice-versa
-
-build-linux:
-	cross build --target=x86_64-unknown-linux-gnu --release
-	strip target/x86_64-unknown-linux-gnu/release/rattata_client
-	strip target/x86_64-unknown-linux-gnu/release/rattata_server
-	upx --best --lzma target/x86_64-unknown-linux-gnu/release/rattata_client
-	upx --best --lzma target/x86_64-unknown-linux-gnu/release/rattata_server
+release-osx:
 	mkdir -p releases
-
-releases/rattata_client-linux.zip: build-linux
-	cd target/x86_64-unknown-linux-gnu/release && zip ../../../releases/rattata_client-linux.zip rattata_client
-
-releases/rattata_server-linux.zip: build-linux
-	cd target/x86_64-unknown-linux-gnu/release && zip ../../../releases/rattata_server-linux.zip rattata_server
-
-
-build-osx:
+	rm -f releases/pakemon-osx.zip
 	cross build --target=x86_64-apple-darwin --release
-	strip target/x86_64-apple-darwin/release/rattata_client
-	strip target/x86_64-apple-darwin/release/rattata_server
-	upx --best --lzma target/x86_64-apple-darwin/release/rattata_client
-	upx --best --lzma target/x86_64-apple-darwin/release/rattata_server
-	mkdir -p releases
-
-releases/rattata_client-osx.zip: build-osx
-	cd target/x86_64-apple-darwin/release && zip ../../../releases/rattata_client-osx.zip rattata_client
-
-releases/rattata_server-osx.zip: build-osx
-	cd target/x86_64-apple-darwin/release && zip ../../../releases/rattata_server-osx.zip rattata_server
-
-
-build-win:
-	cross build --target=x86_64-pc-windows-gnu --release
-	strip target/x86_64-pc-windows-gnu/release/rattata_client
-	strip target/x86_64-pc-windows-gnu/release/rattata_server
-	upx --best --lzma target/x86_64-pc-windows-gnu/release/rattata_client
-	upx --best --lzma target/x86_64-pc-windows-gnu/release/rattata_server
-	mkdir -p releases
-
-releases/rattata_client-win.zip: build-win
-	cd target/x86_64-pc-windows-gnu/release && zip ../../../releases/rattata_client-win.zip rattata_client
-
-releases/rattata_server-win.zip: build-win
-	cd target/x86_64-pc-windows-gnu/release && zip ../../../releases/rattata_server-win.zip rattata_server
+	strip target/x86_64-apple-darwin/release/pakemon target/x86_64-apple-darwin/release/trainer target/x86_64-apple-darwin/release/rattata
+	upx --best --lzma target/x86_64-apple-darwin/release/pakemon target/x86_64-apple-darwin/release/trainer target/x86_64-apple-darwin/release/rattata
+	cd target/x86_64-apple-darwin/release && zip ../../../releases/rattata-osx.zip rattata
+	cd target/x86_64-apple-darwin/release && zip ../../../releases/trainer-osx.zip trainer
+	cd target/x86_64-apple-darwin/release && zip ../../../releases/pakemon-osx.zip pakemon
+	zip releases/pakemon-osx.zip -r -x .gitkeep static

@@ -1,0 +1,8 @@
+[package]
+name = "trainer"
+version = "0.0.1"
+authors = ["David Konsumer <konsumer@jetboystudio.com>"]
+edition = "2018"
+license = "MIT"
+
+[dependencies]
