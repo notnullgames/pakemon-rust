@@ -23,6 +23,7 @@ pub struct Rattata {
 
 impl Rattata {}
 
-pub fn build_rattata() -> Rattata {
+// start a server and wait for connections
+pub fn start_rattata() -> Rattata {
     Rattata { minions: vec![] }
 }
