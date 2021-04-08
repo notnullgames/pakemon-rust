@@ -5,5 +5,13 @@ authors = ["David Konsumer <konsumer@jetboystudio.com>"]
 edition = "2018"
 license = "MIT"
 
-[dependencies]
-quicksilver = "0.4"
+[dependencies.bevy]
+git = "https://github.com/bevyengine/bevy"
+branch = "main"
+default-features = false
+features = ["bevy_winit", "x11"]
+
+[dependencies.bevy_retro]
+git = "https://github.com/katharostech/bevy_retro"
+branch = "master"
+default-features = true
