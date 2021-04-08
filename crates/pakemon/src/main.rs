@@ -1,4 +1,4 @@
-use bevy::{prelude::*};
+use bevy::prelude::*;
 use bevy_retro::*;
 
 // Create a stage label that will be used for our game logic stage
@@ -18,11 +18,7 @@ fn main() {
         .run();
 }
 
-fn setup(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    _scene_graph: ResMut<SceneGraph>,
-) {
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>, _scene_graph: ResMut<SceneGraph>) {
     // Load our sprites
     let title_image = asset_server.load("title.png");
 
@@ -47,4 +43,3 @@ fn setup(
         ..Default::default()
     });
 }
-
