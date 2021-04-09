@@ -19,46 +19,6 @@
           },
         },
       },
-      {
-        "type": "ComponentB",
-        "struct": {
-          "value": {
-            "type": "alloc::string::String",
-            "value": "hello",
-          },
-        },
-      },
-      {
-        "type": "ComponentA",
-        "struct": {
-          "x": {
-            "type": "f32",
-            "value": 1.0,
-          },
-          "y": {
-            "type": "f32",
-            "value": 2.0,
-          },
-        },
-      },
-    ],
-  ),
-  (
-    entity: 1,
-    components: [
-      {
-        "type": "ComponentA",
-        "struct": {
-          "x": {
-            "type": "f32",
-            "value": 3.0,
-          },
-          "y": {
-            "type": "f32",
-            "value": 4.0,
-          },
-        },
-      },
     ],
   ),
 ]
