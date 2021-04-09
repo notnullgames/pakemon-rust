@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy::render::pass::ClearColor;
 
 fn main() {
     App::build()
@@ -8,6 +9,7 @@ fn main() {
             height: 240.0,
             ..Default::default()
         })
+        .insert_resource(ClearColor(Color::rgb(0.0, 0.0, 0.0)))
         .add_plugins(DefaultPlugins)
         .add_startup_system(setup.system())
         .run();
