@@ -4,11 +4,22 @@
 -- script: lua
 
 local t=0
-local x=109
-local y=41
-local direction = 0
-local moving = false
-local step_time = 10
+
+local player = {
+	x=109,
+	y=41,
+	direction = 0,
+	step_time = 10
+}
+
+function player:draw(t, moving)
+	local frame = 1
+	if moving then
+		frame = t % (3 * player.step_time) // player.step_time
+	end
+	frame = frame * 2
+	spr(256 + (player.direction * 32) + frame, player.x, player.y, 0, 1, 0, 0, 2, 2)
+end
 
 -- print text in the center of the screen
 function center_text(str)
@@ -22,47 +33,33 @@ function TIC()
 	t=t+1
 
 	if btn(0) then
-		y=y-1
-		direction = 3
+		player.y=player.y-1
+		player.direction = 3
 	end
 	
 	if btn(1) then
-		y=y+1
-		direction = 0
+		player.y=player.y+1
+		player.direction = 0
 	end
 	
 	if btn(2) then
-		x=x-1
-		direction = 1
+		player.x=player.x-1
+		player.direction = 1
 	end
 	
 	if btn(3) then
-		x=x+1
-		direction = 2
+		player.x=player.x+1
+		player.direction = 2
 	end
-
-	moving = btn(0) or btn(1) or btn(2) or btn(3)
 
 	cls()
 	
 	center_text("Press arrows to move around")
 
-	local frame = 1
-	if moving then
-		frame = t % (3 * step_time) // step_time
-		if frame == 0 then
-			sfx(56, "C-4")
-		end
-	end
-	frame = frame * 2
-
-	-- move a 2x2 princess sprite (selected by direction and time for animation) to x/y
-	spr(256 + (direction * 32) + frame, x, y, 0, 1, 0, 0, 2, 2)
+	player:draw(t, btn(0) or btn(1) or btn(2) or btn(3))
 
 	-- show current location
 	-- print(string.format("%dx%d", x, y), 0, 0)
-	print(peek(0x13FFC))
-
 end
 
 -- <SPRITES>
